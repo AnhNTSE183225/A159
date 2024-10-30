@@ -1,11 +1,8 @@
 package com.theanh.backend.model;
 
-import com.theanh.backend.model.enums.PriceType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -13,19 +10,18 @@ import java.time.LocalDateTime;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class Price {
+public class CartItem {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     Double price;
 
-    @Enumerated(EnumType.STRING)
-    PriceType priceType;
+    Integer quantity;
 
-    LocalDateTime start;
-
-    LocalDateTime end;
+    @ManyToOne
+    Cart cart;
 
     @ManyToOne
     Product product;

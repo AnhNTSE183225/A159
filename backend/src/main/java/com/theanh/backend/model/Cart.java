@@ -1,5 +1,6 @@
 package com.theanh.backend.model;
 
+import com.theanh.backend.model.enums.CartStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -13,26 +14,26 @@ import java.util.List;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class Product {
+public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    String name;
+    Integer totalAmount = 0;
 
-    String description;
+    Double totalPrice = 0.0;
 
-    Double singlePrice;
-
-    String category;
-
-    Integer stockQuantity;
+    @Enumerated(EnumType.STRING)
+    CartStatus status;
 
     LocalDateTime created;
 
     LocalDateTime modified;
 
-    @OneToMany(mappedBy = "product")
-    List<CartItem> cartItems;
+    @OneToMany(mappedBy = "cart")
+    List<CartItem> items;
+
+    @ManyToOne
+    AccountCustomer customer;
 }

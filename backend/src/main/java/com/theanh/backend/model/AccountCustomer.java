@@ -12,15 +12,23 @@ import java.util.List;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class Category {
+public class AccountCustomer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    String name;
+    @ManyToOne
+    Account account;
 
-    String description;
+    String fullName;
 
-    @OneToMany(mappedBy = "category")
-    List<Product> products;
+    String address;
+
+    String email;
+
+    String phone;
+
+    @OneToMany(mappedBy = "customer")
+    List<Cart> carts;
 }
